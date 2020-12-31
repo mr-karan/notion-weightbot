@@ -30,3 +30,29 @@ docker run --restart always --env-file .env --mount type=bind,source=/data/weigh
 ## Backup
 
 I have a `cronjob` set to dump this CSV to a private repo in my `gitea` instance. Since that instance backups to my `B2` as well, it's just more convinient for me that ways.
+
+`crontab` entry:
+
+```
+# m h  dom mon dow   command
+0 11 * * * /home/pi/weightloss/backup.sh
+```
+
+`backup` script:
+
+```sh
+#/bin/bash
+
+set -o
+set -e
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/gitea
+
+cp /data/weightbot/weight.csv /home/pi/weightloss/weight.csv
+
+git add --all
+
+git commit -am "Automated update"
+git push origin main
+```
