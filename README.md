@@ -24,7 +24,7 @@ Currently supported archs are:
 - `arm32v7`
 
 ```
-docker run --name weightbot --restart always -d -v /data/weight_tracker.csv:/app/weight_tracker.csv:ro weightbot/amd64:latest
+docker run --restart always --env-file .env --mount type=bind,source=/data/weightbot/weight.csv,target=/app/weight.csv weightbot/arm32v7:latest
 ```
 
 ## Backup

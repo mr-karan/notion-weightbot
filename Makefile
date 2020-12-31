@@ -8,10 +8,10 @@ build:
 	go build -o ${BIN} -ldflags=" -X 'main.buildDate=${BUILD_DATE}'"
 
 build-docker-amd64:
-	docker build --build-arg ARCH=amd64 -t weightbot/amd64:latest .
+	docker build --build-arg ARCH=amd64 --build-arg PLATFORM=linux/arm64 -t weightbot/amd64:latest .
 
 build-docker-arm32v7:
-	docker build --build-arg ARCH=arm32v7 -t weightbot/arm32v7:latest .
+	docker build --build-arg ARCH=arm32v7 --build-arg PLATFORM=linux/arm/v7 -t weightbot/arm32v7:latest .
 
 run:
 	./${BIN}
