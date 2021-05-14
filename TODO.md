@@ -1,0 +1,3 @@
+- [ ] Check for duplicate records
+    - [ ] CSV
+    - [ ] Notion
