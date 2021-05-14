@@ -1,6 +1,9 @@
-# WeightBot
+# notion-weightbot
 
-This is a really simple Telegram Bot which records the current weight of the user. It then appends the recording to a CSV File.
+This is a really simple Telegram Bot which records the current weight of the user. It then stores the records as:
+
+- CSV File.
+- Notion Database.
 
 ## Motivation
 
@@ -8,6 +11,8 @@ I needed a simple way to log my daily weights. I've used some Android apps in pa
 I wanted to visualise in a better way as well, which I thought could be possible once I have a better control on the data format.
 
 ## Deploying
+
+Please read [Notion API Authorization Guide](https://developers.notion.com/docs/authorization) for creating an _Integration_ and granting access to the _Database_.
 
 ### Binary
 
@@ -17,7 +22,7 @@ I wanted to visualise in a better way as well, which I thought could be possible
 
 ### Docker
 
-- After cloning the repo you can use `make docker-build-${ARCH}` which will produce the docker image based on the arch of the machine you're running it on.
+- After cloning the repo you can use `make build-docker-${ARCH}` which will produce the docker image based on the arch of the machine you're running it on.
 
 Currently supported archs are:
 - `amd64`
@@ -27,7 +32,16 @@ Currently supported archs are:
 docker run --restart always --env-file .env --mount type=bind,source=/data/weightbot/weight.csv,target=/app/weight.csv weightbot/arm32v7:latest
 ```
 
-## Backup
+## Env Variables
+
+```
+TELEGRAM_BOT_TOKEN=
+WEIGHTBOT_CSV_FILE=
+NOTION_DB_ID=
+NOTION_API_TOKEN=
+```
+
+## Backup CSV
 
 I have a `cronjob` set to dump this CSV to a private repo in my `gitea` instance. Since that instance backups to my `B2` as well, it's just more convinient for me that ways.
 
